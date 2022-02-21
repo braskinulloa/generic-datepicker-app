@@ -1,0 +1,22 @@
+<button class="btn btn-warning my-2" ame="isMovile" id="isMovile" (click)="useMobile = boolNull(useMobile)">isMovile = {{ useMobile }}</button>
+<hr>
+
+<app-sophia-datepicker 
+[modelButtons]="buttonsItems" 
+[submitButton]="{ label: 'submit', icon: 'fas fa-calendar-check' }" 
+[mobileView]="useMobile"
+[useTime]="true"  
+[startDate]="customStart"
+[endDate]="customEnd"
+(timeframe)="timeframeSelectedChanged($event)" 
+(timeframeUTC)="timeframeSelectedChangedUTC($event)" 
+(timeframeISO)="timeframeSelectedChangedISO($event)"
+[type]="'single'"
+[dateFormat]="'dd-mm-yyyy'" 
+>
+</app-sophia-datepicker>
+
+<!-- [dateFormat]="'dd-mm-yyyy'" -->
+<!-- [startDate]="customStart" -->
+<!-- [endDate]="customEnd" -->
+<!-- [type]="'single'" -->

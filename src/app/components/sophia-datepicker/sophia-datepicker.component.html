@@ -1,0 +1,100 @@
+<div div (window:resize)="mobileView == null && onResize($event)">
+	<!-- desktop browser template -->
+	<div class="row mx-0 align-items-center my-2" *ngIf="!isMobile; else isMovileTemplate">
+		<div class="col-md-auto row mx-0"
+			*ngIf="modelButtons != null"
+		>
+			<div
+				class="btn-group btn-group-toggle"
+				ngbRadioGroup
+				[(ngModel)]="timeframeButtonModel"
+				name="timeFrameSelection"
+				(ngModelChange)="onTimeframeChange()"
+			>
+				<label ngbButtonLabel class="btn-primary" *ngFor="let btn of modelButtons">
+					{{ btn.label }} <i *ngIf="btn.icon" class="{{ btn.icon }}"></i>
+					<input ngbButton name="btn.value" type="radio" [value]="btn.value" />
+				</label>
+			</div>
+		</div>
+		<div class="col-md-auto row mx-0">
+			<div class="col my-2">
+				<input class="form-control" placeholder="yyyy-mm-dd"
+				name="dp" [(ngModel)]="ngbStartDate" ngbDatepicker #d1="ngbDatepicker"
+				[minDate]="minDate"
+				[maxDate]="today"
+				(click)="this.d1.toggle()"
+				(ngModelChange)="ngbStartDateChanged()">
+			</div>
+			<div class="col-md-auto align-self-center pl-0 pl-sm-2" *ngIf="useTime">
+				<ngb-timepicker [(ngModel)]="ngbStartTime" [seconds]="this.useSeconds" [spinners]="false" (ngModelChange)="ngbStartTimeChanged()"></ngb-timepicker>
+			</div>
+			<div class="col-md-auto align-self-center pl-0 pl-sm-2" *ngIf="type !== 'single'">
+				<span> to </span>
+			</div>
+			<div class="col my-2" *ngIf="type !== 'single'">
+				<input class="form-control" placeholder="yyyy-mm-dd"
+				name="dp" [(ngModel)]="ngbEndDate" ngbDatepicker #d2="ngbDatepicker"
+				[minDate]="ngbStartDate ?? minDate"
+				[maxDate]="today"
+				(click)="this.d2.toggle()"
+				(ngModelChange)="ngbEndDateChanged()">
+			</div>
+			<div class="col-md-auto align-self-center pl-0 pl-sm-2" *ngIf="useTime && type !== 'single'" >
+				<ngb-timepicker [(ngModel)]="ngbEndTime" [seconds]="this.useSeconds" [spinners]="false" (ngModelChange)="ngbEndTimeChanged()"></ngb-timepicker>
+			</div>
+			<div class="col-md-auto align-self-center pl-0 pl-sm-2 my-2" *ngIf="submitButton">
+				<button class="btn btn-primary" type="button" (click)="emitDateSelection()">
+					<span *ngIf="submitButton.label">{{submitButton.label}} </span>
+					<i *ngIf="submitButton.icon" class="{{submitButton.icon}}"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- movile template -->
+<ng-template #isMovileTemplate>
+	<div class="row mx-0 align-items-center my-2" >
+		<div class="col-md-12 row mx-0"
+			*ngIf="modelButtons != null"
+		>
+			<div class="form-group">
+				<select class="form-control" name="select_movile" [ngModel]="timeframeSelect" (ngModelChange)="changeRange($event)">
+					<option value="0" selected="selected" disabled>-- select range --</option>
+					<option *ngFor="let btn of modelButtons" [value]="btn.value">{{ btn.label }} <i *ngIf="btn.icon" class="{{ btn.icon }}"></i></option>
+				</select>
+			</div>
+		</div>
+		<div class="col-md-12 row mx-0">
+			<div class="col my-2">
+				<input class="form-control" placeholder="yyyy-mm-dd"
+				name="dp" [(ngModel)]="ngbStartDate" ngbDatepicker #d1="ngbDatepicker"
+				[minDate]="minDate"
+				[maxDate]="today"
+				(click)="this.d1.toggle()"
+				(ngModelChange)="ngbStartDateChanged()">
+			</div>
+			<div class="col-md-auto align-self-center pl-0 pl-sm-2" *ngIf="useTime">
+				<ngb-timepicker [(ngModel)]="ngbStartTime" [seconds]="this.useSeconds" [spinners]="false" (ngModelChange)="ngbStartTimeChanged()"></ngb-timepicker>
+			</div>
+			<div class="col-md-auto my-2" *ngIf="type !== 'single'">
+				<input class="form-control" placeholder="yyyy-mm-dd"
+				name="dp" [(ngModel)]="ngbEndDate" ngbDatepicker #d2="ngbDatepicker"
+				[minDate]="ngbStartDate ?? minDate"
+				[maxDate]="today"
+				(click)="this.d2.toggle()"
+				(ngModelChange)="ngbEndDateChanged()">
+			</div>
+			<div class="col-md-auto align-self-center pl-0 pl-sm-2" *ngIf="useTime && type !== 'single'">
+				<ngb-timepicker [(ngModel)]="ngbEndTime" [seconds]="this.useSeconds" [spinners]="false" (ngModelChange)="ngbEndTimeChanged()"></ngb-timepicker>
+			</div>
+			<div class="col-md-12 my-2" *ngIf="submitButton">
+				<button class="btn btn-primary"  style="width: 100%; display: block; text-align: center; border: none;" type="button" (click)="emitDateSelection()">
+					<span *ngIf="submitButton.label">{{submitButton.label}} </span>
+					<i *ngIf="submitButton.icon" class="{{submitButton.icon}}"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+</ng-template>

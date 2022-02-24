@@ -35,7 +35,7 @@
 			<div class="col my-2" *ngIf="type !== 'single'">
 				<input class="form-control" placeholder="yyyy-mm-dd"
 				name="dp" [(ngModel)]="ngbEndDate" ngbDatepicker #d2="ngbDatepicker"
-				[minDate]="ngbStartDate ?? minDate"
+				[minDate]="$any(ngbStartDate) ?? $any(minDate)"
 				[maxDate]="today"
 				(click)="this.d2.toggle()"
 				(ngModelChange)="ngbEndDateChanged()">
@@ -81,7 +81,7 @@
 			<div class="col-md-auto my-2" *ngIf="type !== 'single'">
 				<input class="form-control" placeholder="yyyy-mm-dd"
 				name="dp" [(ngModel)]="ngbEndDate" ngbDatepicker #d2="ngbDatepicker"
-				[minDate]="ngbStartDate ?? minDate"
+				[minDate]="$any(ngbStartDate) ?? $any(minDate)"
 				[maxDate]="today"
 				(click)="this.d2.toggle()"
 				(ngModelChange)="ngbEndDateChanged()">

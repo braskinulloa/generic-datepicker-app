@@ -9,10 +9,12 @@
 [startDate]="customStart"
 [endDate]="customEnd"
 (timeframe)="timeframeSelectedChanged($event)" 
+(timeframeDate)="timeframeSelectedChangedDate($event)" 
 (timeframeUTC)="timeframeSelectedChangedUTC($event)" 
 (timeframeISO)="timeframeSelectedChangedISO($event)"
 [type]="'single'"
-[dateFormat]="'dd-mm-yyyy'" 
+[dateFormat]="'dd-MM-yyyy'" 
+[inputFormat]="'mm-dd-yyyy'"
 >
 </app-sophia-datepicker>
 

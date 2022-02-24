@@ -29,11 +29,14 @@ export class AppComponent {
   timeframeSelectedChanged(timeframe: Array<Date | string> | Date | string){
     console.log('Default =>', timeframe);
   }
-  timeframeSelectedChangedUTC(timeframe: Array<Date | string> | Date | string){
+  timeframeSelectedChangedUTC(timeframe: Array<string> | string){
     console.log('UTC =>', timeframe);
   }
-  timeframeSelectedChangedISO(timeframe: Array<Date | string> | Date | string){
+  timeframeSelectedChangedISO(timeframe: Array<string> | string){
     console.log('ISO =>', timeframe);
+  }
+  timeframeSelectedChangedDate(timeframe: Array<Date | string> | Date | string){
+    console.log('Date =>', timeframe);
   }
   boolNull(boo: boolean | null): boolean | null {
     switch (boo) {

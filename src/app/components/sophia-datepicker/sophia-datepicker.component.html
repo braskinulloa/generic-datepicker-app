@@ -56,7 +56,7 @@
     <!-- Save/Submit Button -->
     <div [ngClass]="type == 'single' && !useTime? 'col-12 col-sm-3 col-md-2'
     :(type != 'single' && !useTime? ''
-    :(type == 'single' && useTime? 'col-12 col-sm-3 col-md-2':''))" class="mb-3" *ngIf="submitButton">
+    :(type == 'single' && useTime? 'col-12 col-sm-3 col-md-2':'col-12 col-sm-3 col-md-2'))" class="mb-3" *ngIf="submitButton">
       <button class="btn btn-primary" type="button" (click)="emitDateSelection()">
         <span *ngIf="submitButton.label">{{submitButton.label}} </span>
         <i *ngIf="submitButton.icon" class="{{submitButton.icon}}"></i>

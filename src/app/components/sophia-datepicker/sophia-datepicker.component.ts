@@ -9,7 +9,7 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { subDays } from 'date-fns';
 import { format as fnsFormat} from 'date-fns';
- 
+
 let INPUT_FORMAT = '/'
 
  /**
@@ -72,7 +72,7 @@ let INPUT_FORMAT = '/'
 				break;
 		}
 	}
-  
+
 	format(date: NgbDateStruct | null): string {
 		let delimitter = '-';
 		switch (INPUT_FORMAT) {
@@ -99,7 +99,7 @@ let INPUT_FORMAT = '/'
 		}
 	}
  }
- 
+
  @Component({
 	selector: 'app-sophia-datepicker',
 	templateUrl: './sophia-datepicker.component.html',
@@ -109,9 +109,9 @@ let INPUT_FORMAT = '/'
 	  ]
 })
 export class SophiaDatepickerComponent implements OnInit, OnChanges {
-	@Input() modelButtons: { label: string, value: number, icon?: string }[] | null = null; 
+	@Input() modelButtons: { label: string, value: number, icon?: string }[] | null = null;
 	@Input() submitButton: { label?: string, icon?: string } | null = null;
-	@Input() type: 'single' | 'multiple' = 'multiple';
+	@Input() type: string = 'multiple'; // 'single' | 'multiple'
 	@Input() startDate: Date | null = null;
 	@Input() endDate: Date | null = null;
 	@Input() useTime: boolean = false;
@@ -124,8 +124,8 @@ export class SophiaDatepickerComponent implements OnInit, OnChanges {
 	@Output('timeframeISO') timeframeISO: EventEmitter<Array<string> | string> = new EventEmitter<Array<string> | string>();
 	@Output('timeframeUTC') timeframeUTC: EventEmitter<Array<string> | string> = new EventEmitter<Array<string> | string>();
 	@Output('timeframeDate') timeframeDate: EventEmitter<Array<Date> | Date> = new EventEmitter<Array<Date> | Date>();
-	
-	
+
+
 	isMobile: boolean = false;
 	ngbStartTime: NgbTimeStruct | null = null
 	ngbEndTime: NgbTimeStruct | null = null
@@ -134,25 +134,25 @@ export class SophiaDatepickerComponent implements OnInit, OnChanges {
 	timeframeButtonModel: NgModel | number | null = null;
 	timeframeSelect: NgModel | number | null = 0;
 	readonly minDate = new NgbDate(1999, 1, 1);
-		
+
 	constructor(private dateAdapter: NgbDateAdapter<string>) {
 	}
 	get today(){
 		const now = new Date();
 		return new NgbDate(now.getFullYear(), now.getMonth()+1, now.getDate());
 	}
-	onResize(event: any) {
+	/*onResize(event: any) {
 		if (event.target.innerWidth <= 767) {
 			this.isMobile = true;
 		} else {
 			this.isMobile = false;
 		}
-	}
+	}*/
 	ngOnInit(): void {
 		if (this.mobileView!=null) {
 			this.isMobile = this.mobileView;
 		}
-		if (this.ngbEndDate == null) {			
+		if (this.ngbEndDate == null) {
 			this.ngbEndDate = this.today;
 		}
 		INPUT_FORMAT = this.inputFormat??INPUT_FORMAT;
@@ -168,7 +168,7 @@ export class SophiaDatepickerComponent implements OnInit, OnChanges {
 		}
 		this.isMobile = this.mobileView??false;
 	}
-	onTimeframeChange(){		
+	onTimeframeChange(){
 		const diff = this.timeframeButtonModel as number;
 		if (diff) {
 			this.changeRange(diff);
@@ -186,24 +186,24 @@ export class SophiaDatepickerComponent implements OnInit, OnChanges {
 	emitDateSelection(){
 		switch (this.type) {
 			case 'single':
-				this.ngbStartDate = this.ngbStartDate  as NgbDateStruct ?? this.today  as NgbDateStruct;	
+				this.ngbStartDate = this.ngbStartDate  as NgbDateStruct ?? this.today  as NgbDateStruct;
 				this.ngbStartTime = this.ngbStartTime??{ hour: 0, minute: 0, second: 0};
 				const date = Date.UTC(this.ngbStartDate?.year, this.ngbStartDate?.month - 1, this.ngbStartDate?.day, this.ngbStartTime?.hour, this.ngbStartTime?.minute, this.ngbStartTime?.second, 0);
 				this.timeframe.emit(
 					this.format(new Date(date), this.dateFormat)
-				);				
+				);
 				this.timeframeISO.emit(new Date(date).toISOString());
 				this.timeframeUTC.emit(new Date(date).toUTCString());
 				this.timeframeDate.emit(new Date(date));
 				break;
-				
+
 			case 'multiple':
 				this.ngbStartDate = this.ngbStartDate as NgbDateStruct ?? this.today as NgbDateStruct;
 				this.ngbStartTime = this.ngbStartTime??{ hour: 0, minute: 0, second: 0};
 				this.ngbEndDate = this.ngbEndDate as NgbDateStruct ?? this.today as NgbDateStruct ;
 				this.ngbEndTime = this.ngbEndTime??{ hour: 23, minute: 59, second: 59};
 				const startDate = new Date(this.ngbStartDate?.year, this.ngbStartDate?.month - 1, this.ngbStartDate?.day, this.ngbStartTime?.hour, this.ngbStartTime?.minute, this.ngbStartTime?.second, 0);
-				const endDate = 
+				const endDate =
 					new Date(this.ngbEndDate?.year, this.ngbEndDate?.month - 1, this.ngbEndDate?.day, this.ngbEndTime?.hour, this.ngbEndTime?.minute, this.ngbEndTime?.second, 59);
 				this.timeframe.emit([
 						this.format(startDate, this.dateFormat),
@@ -252,9 +252,9 @@ export class SophiaDatepickerComponent implements OnInit, OnChanges {
 	/**
 	 * Formats a date
 	 * https://date-fns.org/v2.28.0/docs/format
-	 * @param date 
-	 * @param dateformat 
-	 * @returns 
+	 * @param date
+	 * @param dateformat
+	 * @returns
 	 */
 	format(date: Date | string, dateformat: string | null): Date | string {
 		const to_format_date = typeof date === 'string' ? new Date(date) : date;

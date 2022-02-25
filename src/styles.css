@@ -1,1 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
+.ngb-tp-input,
+.ngb-tp-minute,
+.ngb-tp-second {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.ngb-tp-input-container {
+  margin: auto !important;
+}

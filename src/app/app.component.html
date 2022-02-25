@@ -3,7 +3,7 @@
 
 <app-sophia-datepicker 
 [modelButtons]="buttonsItems" 
-[submitButton]="{ label: 'submit', icon: 'fas fa-calendar-check' }" 
+
 [mobileView]="useMobile"
 [useTime]="true"  
 [startDate]="customStart"
@@ -12,7 +12,6 @@
 (timeframeDate)="timeframeSelectedChangedDate($event)" 
 (timeframeUTC)="timeframeSelectedChangedUTC($event)" 
 (timeframeISO)="timeframeSelectedChangedISO($event)"
-[type]="'single'"
 [dateFormat]="'dd-MM-yyyy'" 
 [inputFormat]="'mm-dd-yyyy'"
 >
@@ -22,3 +21,4 @@
 <!-- [startDate]="customStart" -->
 <!-- [endDate]="customEnd" -->
 <!-- [type]="'single'" -->
+<!-- [submitButton]="{ label: 'submit', icon: 'fas fa-calendar-check' }"  -->
